@@ -1,25 +1,37 @@
-import Button from "../Button/Button"
-import "./taskcard.css"
+import Button from "../Button/Button";
+import "./taskcard.css";
+import { TaskContext } from "../../context/TaskContent";
+import { useContext, useState } from "react";
 
 export const conditions = {
   check: "check",
   delete: "delete",
-  edit: "edit"
-}
-const TaskCard = ({taskInfo}) => {
+  edit: "edit",
+};
+const TaskCard = ({ taskInfo }) => {
+  const [newTitle, setNewTitle] = useState("")
+  const { isEditing, editTask } = useContext(TaskContext);
+  
   return (
     <div className="taskCard">
-      <span className="taskTitle">{taskInfo.title}</span>
-        
-      <div className="taskButtons">
-      <Button  condition={conditions.check}/>
-      <Button condition={conditions.edit}/>
-      <Button taskId = {taskInfo.id} 
-      condition={conditions.delete}/>
-      </div>
       
-    </div>
-  )
-}
+      {isEditing ? (
+        <><input onChange={(e)=>{setNewTitle(e.target.value)}} placeholder="edite la tarea" type="text"></input> <button onClick={()=>editTask(taskInfo.id,newTitle)}>Cambiar</button></>
+      ) : (
+        <span className="taskTitle">{taskInfo.title}</span>
+      )}
 
-export default TaskCard
+      <div className="taskButtons">
+        <Button condition={conditions.check} />
+        <Button  condition={conditions.edit} />
+        <Button  condition={conditions.delete} />
+      </div>
+    </div>
+  );
+};
+
+export default TaskCard;
+
+//PRIMERO: Funcion sobre el boton edit que reciba un ID.
+//SEGUNDO: Al ejecutarse, rendereizar span con title o input para modificar, dependiendo un estado.
+//TERCERO:

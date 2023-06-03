@@ -3,8 +3,8 @@ import "./button.css";
 import { conditions } from "../TaskCard/TaskCard";
 import { useContext } from "react";
 import { TaskContext } from "../../context/TaskContent";
-const Button = ({ condition,taskId }) => {
-  const {deleteTask} = useContext(TaskContext)
+const Button = ({ condition,taskId, editedText }) => {
+  const {deleteTask,setIsEditing} = useContext(TaskContext)
   return (
     <>
       {condition === conditions.check ? (
@@ -12,7 +12,7 @@ const Button = ({ condition,taskId }) => {
           <AiFillCheckSquare className="icon" />
         </button>
       ) : condition === conditions.edit ? (
-        <button className="customButton">
+        <button onClick={()=>{setIsEditing(true)}} className="customButton">
           {" "}
           <AiFillEdit className="icon" />
         </button>

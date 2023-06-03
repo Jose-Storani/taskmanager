@@ -1,6 +1,5 @@
 .form{
   text-align: center;
-  border: solid red 2px;
   max-width: 400px;
   margin: auto;
   display: flex;
@@ -10,6 +9,7 @@
 .form input{
   width: 200px;
   height: 30px;
+  outline: none;
 }
 
 .form button{
