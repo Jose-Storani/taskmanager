@@ -1,4 +1,4 @@
-import "./taskList.css"
+
 import TaskCard from "../TaskCard/TaskCard"
 import { useContext } from "react"
 import { TaskContext } from "../../context/TaskContent"
@@ -9,10 +9,10 @@ const TaskList = () => {
     return <h5>No hay tareas</h5>
   }
   return (
-    <div className="taskList">
-      {tasks.map((task)=>{
-        return <TaskCard key={task.id} taskInfo ={task}/>
-      })}
+    <div className="grid grid-cols-3 gap-5  mt-8 mx-2 " >
+      {tasks.map((task)=>(
+        <TaskCard key={task.id} taskInfo ={task}/>
+      ))}
         
     </div>
   )

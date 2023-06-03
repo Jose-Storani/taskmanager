@@ -1,5 +1,5 @@
 import { AiFillDelete, AiFillCheckSquare, AiFillEdit } from "react-icons/ai";
-import "./button.css";
+
 import { useContext } from "react";
 import { TaskContext } from "../../context/TaskContent";
 const Button = ({ condition,taskId}) => {
@@ -14,21 +14,21 @@ const Button = ({ condition,taskId}) => {
     <>
       {condition === conditions.check ? (
         <button onClick={()=>checkTask()} className="customButton">
-          <AiFillCheckSquare className="icon" />
+          <AiFillCheckSquare style={{color:"green"}} className="icon text-xl" />
         </button>
       ) : condition === conditions.edit ? (
         <button onClick={()=>{setIsEditing(true)}} className="customButton">
           {" "}
-          <AiFillEdit className="icon" />
+          <AiFillEdit style={{color:"yellow"}} className="icon text-xl" />
         </button>
       ) : (
         <button
-          className="customButton"
+          
           onClick={() => {
             deleteTask(taskId);
           }}
         >
-          <AiFillDelete className="icon" />
+          <AiFillDelete style={{color:"red"}} className="icon text-xl" />
         </button>
       )}
     </>

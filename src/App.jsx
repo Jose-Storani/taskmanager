@@ -1,15 +1,16 @@
-import "./App.css";
-import Title from "./components/Title/Title";
+
 import Form from "./components/Form/Form";
 import TaskList from "./components/TaskList/TaskList";
 
 function App() {
   return (
-    <>
-      <Title />
+    <main className="bg-zinc-800 min-h-screen">
+      <div  className="container m-auto  p-5">
       <Form  />
       <TaskList />
-    </>
+      </div>
+      
+    </main>
   );
 }
 
