@@ -5,6 +5,7 @@ export const TaskContext = createContext();
 export const TaskContentProvider = (props) => {
   const [isEditing, setIsEditing] = useState(false);
   const [tasks, setTasks] = useState([]);
+  const [isChecked, setIsChecked] = useState(false)
   useEffect(() => {
     setTasks(data);
   }, []);
@@ -26,6 +27,10 @@ export const TaskContentProvider = (props) => {
     setTasks(newArray);
     setIsEditing(false)
   };
+
+  const checkTask = ()=>{
+    setIsChecked(true)
+  }
   return (
     <TaskContext.Provider
       value={{
@@ -34,7 +39,9 @@ export const TaskContentProvider = (props) => {
         addTask,
         editTask,
         isEditing,
-        setIsEditing
+        setIsEditing,
+        isChecked,
+        checkTask
       }}
     >
       {props.children}

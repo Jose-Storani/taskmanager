@@ -3,28 +3,24 @@ import "./taskcard.css";
 import { TaskContext } from "../../context/TaskContent";
 import { useContext, useState } from "react";
 
-export const conditions = {
-  check: "check",
-  delete: "delete",
-  edit: "edit",
-};
+
 const TaskCard = ({ taskInfo }) => {
   const [newTitle, setNewTitle] = useState("")
-  const { isEditing, editTask } = useContext(TaskContext);
+  const { isEditing, editTask, isChecked } = useContext(TaskContext);
   
   return (
     <div className="taskCard">
       
-      {isEditing ? (
+      {isEditing ? 
         <><input onChange={(e)=>{setNewTitle(e.target.value)}} placeholder="edite la tarea" type="text"></input> <button onClick={()=>editTask(taskInfo.id,newTitle)}>Cambiar</button></>
-      ) : (
+       : isChecked ? <del className="taskTitle">{taskInfo.title}</del> :  
         <span className="taskTitle">{taskInfo.title}</span>
-      )}
+      }
 
       <div className="taskButtons">
-        <Button condition={conditions.check} />
-        <Button  condition={conditions.edit} />
-        <Button  condition={conditions.delete} />
+        <Button condition="check"/>
+        <Button condition="edit" />
+        <Button condition="delete" taskId={taskInfo.id}/>
       </div>
     </div>
   );
