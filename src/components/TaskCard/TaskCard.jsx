@@ -17,8 +17,14 @@ const TaskCard = ({ taskInfo }) => {
             }}
             placeholder="edite la tarea"
             type="text"
-          ></input>{" "}
-          <button onClick={() => editTask(taskInfo.id, newTitle)}>
+          ></input>
+          <button onClick={() =>{
+          
+            if(newTitle === ""){
+              return alert("Ingrese modificación")
+            }
+            editTask(taskInfo.id, newTitle)
+          } }>
             Cambiar
           </button>
         </>

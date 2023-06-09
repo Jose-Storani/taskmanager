@@ -16,7 +16,7 @@ const Form = () => {
   return (
     <div className="p-6 max-w-md mx-auto bg-slate-800 rounded-xl shadow-lg shadow-cyan-500/30 hover:shadow-indigo-500/30">
       <form className="flex justify-between" onSubmit={handleSubmit}>
-      <input className="bg-slate-700 w-3/4 p-2 rounded-md outline-none text-stone-200"
+      <input required className="bg-slate-700 w-3/4 p-2 rounded-md outline-none text-stone-200"
         onChange={(e) => {
           setTitle(e.target.value);
         }}
