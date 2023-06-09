@@ -9,26 +9,33 @@ const Button = ({ condition,taskId}) => {
   edit: "edit",
 };
  
-  const {deleteTask,setIsEditing,checkTask} = useContext(TaskContext)
+  const {deleteTask,setIsEditing,checkTask,setEdit} = useContext(TaskContext)
   return (
     <>
       {condition === conditions.check ? (
-        <button onClick={()=>checkTask()} className="customButton">
-          <AiFillCheckSquare style={{color:"green"}} className="icon text-xl" />
+        <button onClick={() => checkTask(taskId)} className="customButton">
+          <AiFillCheckSquare
+            style={{ color: "green" }}
+            className="icon text-xl"
+          />
         </button>
       ) : condition === conditions.edit ? (
-        <button onClick={()=>{setIsEditing(true)}} className="customButton">
+        <button
+          onClick={() => {
+            setEdit(taskId);
+          }}
+          className="customButton"
+        >
           {" "}
-          <AiFillEdit style={{color:"yellow"}} className="icon text-xl" />
+          <AiFillEdit style={{ color: "yellow" }} className="icon text-xl" />
         </button>
       ) : (
         <button
-          
           onClick={() => {
             deleteTask(taskId);
           }}
         >
-          <AiFillDelete style={{color:"red"}} className="icon text-xl" />
+          <AiFillDelete style={{ color: "red" }} className="icon text-xl" />
         </button>
       )}
     </>

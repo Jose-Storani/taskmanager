@@ -5,7 +5,7 @@ export const TaskContext = createContext();
 export const TaskContentProvider = (props) => {
   const [isEditing, setIsEditing] = useState(false);
   const [tasks, setTasks] = useState([]);
-  const [isChecked, setIsChecked] = useState(false)
+  const [isChecked, setIsChecked] = useState(false);
   useEffect(() => {
     setTasks(data);
   }, []);
@@ -13,6 +13,8 @@ export const TaskContentProvider = (props) => {
     const newTask = {
       id: tasks.length + 1,
       title: taskTitle,
+      finished: false,
+      editing: false,
     };
     setTasks([...tasks, newTask]);
   };
@@ -20,17 +22,30 @@ export const TaskContentProvider = (props) => {
     setTasks(tasks.filter((task) => id !== task.id));
   };
 
+  const updateTask = (id, updateFn) => {
+    const index = tasks.findIndex((task) => id === task.id);
+    if (index !== -1) {
+      setTasks((prevState) => {
+        const newArray = [...prevState];
+        newArray[index] = updateFn(newArray[index]);
+        return newArray;
+      });
+    }
+  };
+  
+  const setEdit = (id) => {
+    updateTask(id, (task) => ({ ...task, editing: true }));
+  };
+  
   const editTask = (id, update) => {
-    const taskToUpdateIndex = tasks.findIndex((task) => id == task.id);
-    const newArray = [...tasks];
-    newArray[taskToUpdateIndex].title = update;
-    setTasks(newArray);
-    setIsEditing(false)
+    updateTask(id, (task) => ({ ...task, title: update, editing: false }));
+  };
+  
+  const checkTask = (id) => {
+    updateTask(id, (task) => ({ ...task, finished: true }));
   };
 
-  const checkTask = ()=>{
-    setIsChecked(true)
-  }
+
   return (
     <TaskContext.Provider
       value={{
@@ -41,7 +56,8 @@ export const TaskContentProvider = (props) => {
         isEditing,
         setIsEditing,
         isChecked,
-        checkTask
+        checkTask,
+        setEdit
       }}
     >
       {props.children}
