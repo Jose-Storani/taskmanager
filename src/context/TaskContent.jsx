@@ -1,14 +1,17 @@
 import { createContext, useState, useEffect } from "react";
-import { tasks as data } from "../data/tasks";
+
 
 export const TaskContext = createContext();
 export const TaskContentProvider = (props) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [tasks, setTasks] = useState([]);
-  const [isChecked, setIsChecked] = useState(false);
-  useEffect(() => {
-    setTasks(data);
-  }, []);
+  const [tasks, setTasks] = useState(()=>{
+    const stored = localStorage.getItem("tasks");
+    const initialValue = JSON.parse(stored);
+    return initialValue || []
+  });
+
+  useEffect(()=>{
+    localStorage.setItem("tasks",JSON.stringify(tasks))
+  },[tasks])
   const addTask = (taskTitle) => {
     const newTask = {
       id: tasks.length + 1,
@@ -53,9 +56,6 @@ export const TaskContentProvider = (props) => {
         deleteTask,
         addTask,
         editTask,
-        isEditing,
-        setIsEditing,
-        isChecked,
         checkTask,
         setEdit
       }}
